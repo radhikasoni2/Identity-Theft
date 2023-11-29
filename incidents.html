@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Identity Theft Incidents</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color:cadetblue;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color:cadetblue;
+        }
+        #outputTable {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        #outputTable th, #outputTable td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        #outputTable th {
+            background-color:cadetblue;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Report Identity Theft Incidents</h1>
+    <form id="identityTheftForm">
+        <label for="incidentInput">Identity Theft Incident:</label>
+        <textarea id="incidentInput" name="incidentInput" rows="4" required></textarea>
+
+        <label for="preventionInput">Prevention Measures Taken:</label>
+        <textarea id="preventionInput" name="preventionInput" rows="4" required></textarea>
+
+        <input type="hidden" id="editIndex" value="-1"> <!-- To store the index of the entry being edited -->
+
+        <button type="button" onclick="submitForm()">Submit</button>
+        <button type="button" onclick="updateTable()">Clear</button>
+    </form>
+
+    <table id="outputTable">
+        <thead>
+            <tr>
+                <th>Identity Theft Incident</th>
+                <th>Prevention Measures Taken</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="outputBody"></tbody>
+    </table>
+
+    <script>
+        // Load stored information on page load
+        window.onload = function () {
+            displayStoredInformation();
+        };
+
+        function submitForm() {
+            var incident = document.getElementById("incidentInput").value;
+            var prevention = document.getElementById("preventionInput").value;
+
+            var editIndex = document.getElementById("editIndex").value;
+
+            if (editIndex !== "-1") {
+                // Editing an existing entry
+                editEntry(incident, prevention, editIndex);
+            } else {
+                // Adding a new entry
+                storeInformation(incident, prevention);
+            }
+
+            // Clear the form
+            clearForm();
+
+            // Display stored information in the table
+            displayStoredInformation();
+        }
+
+        function storeInformation(incident, prevention) {
+            // Retrieve existing stored information
+            var storedInformation = JSON.parse(localStorage.getItem("identityTheftInfo")) || [];
+
+            // Add new information to the array
+            storedInformation.push({ incident: incident, prevention: prevention });
+
+            // Store the updated array in local storage
+            localStorage.setItem("identityTheftInfo", JSON.stringify(storedInformation));
+        }
+
+        function displayStoredInformation() {
+            var storedInformation = JSON.parse(localStorage.getItem("identityTheftInfo")) || [];
+            var outputBody = document.getElementById("outputBody");
+
+            // Clear existing table rows
+            outputBody.innerHTML = "";
+
+            // Display stored information in the table
+            storedInformation.forEach(function (info, index) {
+                var row = outputBody.insertRow();
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                cell1.innerHTML = info.incident;
+                cell2.innerHTML = info.prevention;
+                cell3.innerHTML = '<button onclick="editEntryForm(' + index + ')">Edit</button>';
+            });
+        }
+
+        function editEntryForm(index) {
+            // Populate the form with the selected entry for editing
+            var storedInformation = JSON.parse(localStorage.getItem("identityTheftInfo")) || [];
+            var editIndexInput = document.getElementById("editIndex");
+            var incidentInput = document.getElementById("incidentInput");
+            var preventionInput = document.getElementById("preventionInput");
+
+            editIndexInput.value = index;
+            incidentInput.value = storedInformation[index].incident;
+            preventionInput.value = storedInformation[index].prevention;
+        }
+
+        function editEntry(incident, prevention, index) {
+            // Edit an existing entry in the stored information
+            var storedInformation = JSON.parse(localStorage.getItem("identityTheftInfo")) || [];
+
+            storedInformation[index].incident = incident;
+            storedInformation[index].prevention = prevention;
+
+            // Update the array in local storage
+            localStorage.setItem("identityTheftInfo", JSON.stringify(storedInformation));
+        }
+
+        function clearForm() {
+            // Clear the form inputs and reset the editIndex
+            document.getElementById("incidentInput").value = "";
+            document.getElementById("preventionInput").value = "";
+            document.getElementById("editIndex").value = "-1";
+        }
+
+        function updateTable() {
+            // Update the table and clear the form
+            displayStoredInformation();
+            clearForm();
+        }
+    </script>
+</body>
+</html>

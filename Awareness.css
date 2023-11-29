@@ -1,0 +1,43 @@
+
+#h1 {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    color: rgb(1, 15, 40);
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color:cadetblue;
+    color: #fff;
+    text-align: center;
+    padding: 30px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    background-color:cadetblue;
+    overflow: hidden;
+}
+
+
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+section {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color:cadetblue;
+    color: #fff;
+}

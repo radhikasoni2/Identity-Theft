@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identity Theft Awareness</title>
+    <link rel="stylesheet" href="Awareness.css">
+</head>
+<body>
+    <header>
+        <h1 id = "h1"> Identity Theft Awareness</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#home" onclick="openNewWindow('home.html')">Home</a></li>
+            <li><a href="#types" onclick="openNewWindow('Types.html')">Types of Identity Theft</a></li>
+            <li><a href="#prevention" onclick="openNewWindow('Prevention.html')">Prevention Measures</a></li>
+            <li><a href="#Report Identity Theft Incident" onclick="openNewWindow('incidents.html')">Report Incident</a></li>
+            <li><a href="#Phishing" onclick="openNewWindow('http://127.0.0.1:5000')">Phishing</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    <section id="home" onclick="openNewWindow('home.html')"></section>
+        <h2>Welcome to our Identity Theft Awareness Website</h2>
+        <p>Learn how to protect yourself from identity theft and stay safe online.</p>
+    </section>
+    <section id="types">
+        <h2>Types of Identity Theft</h2>
+        <p>Here are some common types of identity theft:</p>
+        <ul>
+            <li>Financial Identity Theft</li>
+            <li>Social Security Identity Theft</li>
+            <li>Tax Identity Theft</li>
+            <li>Medical Identity Theft</li>
+        </ul>
+    </section>
+   
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>If you have questions or need assistance, please contact us at <a href="mailto:contact@example.com">contact@example.com</a>.</p>
+    </section>
+    <footer>
+        <p>&copy; 2023 Identity Theft Awareness</p>
+    </footer>
+
+    <script>
+        function openNewWindow(url) {
+            window.open(url, "_blank");
+        }
+    </script>
+</body>
+</html>
